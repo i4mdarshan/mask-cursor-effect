@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import styles from "./App.module.scss";
 import useMousePosition from "./hooks/useMousePosition";
 import { motion } from "framer-motion";
@@ -6,13 +7,14 @@ import { motion } from "framer-motion";
 function App() {
   const { x, y } = useMousePosition();
   const [isHovered, setIsHovered] = useState(false);
-  const maskSize = 40; // use this to center the mask image for the cursor
+  const maskSize = isHovered ? 400 : 40; // use this to center the mask image for the cursor and change the size on mouse event
   return (
     <main className={styles.main}>
       <motion.div
         className={styles.mask}
         animate={{
           WebkitMaskPosition: `${x - maskSize / 2}px ${y - maskSize / 2}px`,
+          WebkitMaskSize: `${maskSize}px`,
         }}
         transition={{
           type: "tween",
